@@ -1,254 +1,287 @@
-import { DOCTORS, CONTACT_DETAILS, DEPARTMENTS } from "@/lib/constants";
-import { User, Phone, Mail, Calendar, Award, Clock, Stethoscope, Star } from "lucide-react";
-import Link from "next/link";
-import { Metadata } from "next";
+"use client";
 
-export const metadata: Metadata = {
-  title: "Our Expert Doctors & Specialists | Prince Hospital",
-  description: "Meet our team of 150+ expert doctors and medical specialists at Prince Hospital. Highly qualified professionals with years of experience in various medical fields.",
-  keywords: ["doctors", "specialists", "cardiologist", "neurologist", "orthopedic", "pediatrician", "oncologist", "medical team"],
-};
+import { DOCTORS, CONTACT_DETAILS, DEPARTMENTS } from "@/lib/constants";
+import { User, Phone, Mail, Calendar, Award, Clock, Stethoscope, Star, ChevronRight, Search, Sparkles } from "lucide-react";
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { GlassPanel } from "@/components/ui/GlassPanel";
+import { GlassButton } from "@/components/ui/GlassButton";
+import { useState } from "react";
 
 export default function DoctorsPage() {
+  const [selectedSpecialization, setSelectedSpecialization] = useState("All");
+  const [selectedDepartment, setSelectedDepartment] = useState("All");
+  
   const specializations = ["All", "Cardiology", "Neurology", "Orthopedics", "Pediatrics", "Oncology", "Emergency Medicine"];
+  
+  const filteredDoctors = DOCTORS.filter(doctor => {
+    const matchesSpecialization = selectedSpecialization === "All" || doctor.specialization === selectedSpecialization;
+    const matchesDepartment = selectedDepartment === "All" || doctor.specialization.toLowerCase().includes(selectedDepartment.toLowerCase());
+    return matchesSpecialization && matchesDepartment;
+  });
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white dark:from-gray-900 dark:to-gray-950">
+    <div className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-white">
       {/* Hero Section */}
-      <section className="relative py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-teal-600 to-blue-600 text-white">
-        <div className="max-w-7xl mx-auto text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">Our Expert Doctors & Specialists</h1>
-          <p className="text-xl max-w-3xl mx-auto mb-8">
-            Prince Hospital is home to 150+ highly qualified doctors across 50+ specialties. Our medical team combines expertise, compassion, and cutting-edge technology.
-          </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <div className="bg-white/20 backdrop-blur-sm rounded-xl p-4">
-              <div className="text-3xl font-bold">150+</div>
-              <div className="text-sm">Expert Doctors</div>
+      <section className="relative py-24 px-4 sm:px-6 lg:px-8 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-900 to-cyan-900 opacity-80" />
+        <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10" />
+        <div className="container mx-auto relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            className="max-w-5xl mx-auto text-center"
+          >
+            <GlassPanel
+              variant="light"
+              glow="medium"
+              className="w-fit px-5 py-2.5 rounded-full border-white/10 mb-8 mx-auto"
+            >
+              <div className="flex items-center gap-2.5">
+                <Sparkles className="h-5 w-5 text-cyan-400" />
+                <span className="text-sm font-semibold text-cyan-300 tracking-widest uppercase">
+                  World‑Class Medical Team
+                </span>
+              </div>
+            </GlassPanel>
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-heading font-bold leading-[1.08] mb-8">
+              Meet Our{" "}
+              <span className="bg-gradient-to-r from-cyan-300 via-blue-300 to-purple-300 bg-clip-text text-transparent animate-gradient-x">
+                Expert Doctors
+              </span>
+            </h1>
+            <p className="text-xl md:text-2xl text-slate-200/90 max-w-3xl mx-auto leading-relaxed mb-12">
+              Prince Hospital is home to 150+ highly qualified doctors across 50+ specialties. Our medical team combines expertise, compassion, and cutting‑edge technology.
+            </p>
+            <div className="flex flex-wrap justify-center gap-6">
+              {[
+                { value: "150+", label: "Expert Doctors", color: "from-cyan-500/20 to-blue-500/20" },
+                { value: "50+", label: "Medical Specialties", color: "from-green-500/20 to-emerald-500/20" },
+                { value: "15+", label: "Years Avg. Experience", color: "from-purple-500/20 to-pink-500/20" },
+                { value: "24/7", label: "Emergency Doctors", color: "from-red-500/20 to-orange-500/20" },
+              ].map((stat, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: index * 0.1 }}
+                  whileHover={{ y: -5 }}
+                >
+                  <GlassPanel
+                    variant="medium"
+                    glow="soft"
+                    className={`p-6 rounded-2xl text-center bg-gradient-to-br ${stat.color}`}
+                  >
+                    <div className="text-4xl font-bold">{stat.value}</div>
+                    <div className="text-slate-300/80 text-sm mt-2">{stat.label}</div>
+                  </GlassPanel>
+                </motion.div>
+              ))}
             </div>
-            <div className="bg-white/20 backdrop-blur-sm rounded-xl p-4">
-              <div className="text-3xl font-bold">50+</div>
-              <div className="text-sm">Medical Specialties</div>
-            </div>
-            <div className="bg-white/20 backdrop-blur-sm rounded-xl p-4">
-              <div className="text-3xl font-bold">15+</div>
-              <div className="text-sm">Years Avg. Experience</div>
-            </div>
-            <div className="bg-white/20 backdrop-blur-sm rounded-xl p-4">
-              <div className="text-3xl font-bold">24/7</div>
-              <div className="text-sm">Emergency Doctors</div>
-            </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Filter & Search Section */}
-      <section className="py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 mb-10">
-            <h2 className="text-2xl font-bold mb-6 text-gray-800 dark:text-white">Find Your Doctor</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <section className="py-16 px-4 sm:px-6 lg:px-8">
+        <div className="container mx-auto">
+          <GlassPanel
+            variant="strong"
+            glow="medium"
+            className="p-8 rounded-3xl mb-12"
+          >
+            <h2 className="text-3xl font-bold mb-8 flex items-center gap-3">
+              <Search className="h-8 w-8 text-cyan-400" />
+              Find Your Doctor
+            </h2>
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               <div>
-                <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">Search by Specialization</label>
-                <div className="flex flex-wrap gap-2">
+                <label className="block text-lg font-semibold mb-4 text-slate-200">Search by Specialization</label>
+                <div className="flex flex-wrap gap-3">
                   {specializations.map((spec) => (
-                    <button
+                    <motion.button
                       key={spec}
-                      className="px-4 py-2 rounded-full border border-teal-300 dark:border-teal-700 text-teal-700 dark:text-teal-300 hover:bg-teal-50 dark:hover:bg-teal-900/30 transition-colors"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={() => setSelectedSpecialization(spec)}
+                      className={`px-5 py-3 rounded-full font-medium transition-all duration-300 ${
+                        selectedSpecialization === spec
+                          ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-glow-md"
+                          : "bg-white/10 text-slate-300 hover:bg-white/20 border border-white/10"
+                      }`}
                     >
                       {spec}
-                    </button>
+                    </motion.button>
                   ))}
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">Search by Department</label>
-                <select className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-800 dark:text-white">
-                  <option>All Departments</option>
-                  {DEPARTMENTS.map((dept) => (
-                    <option key={dept.id}>{dept.name}</option>
-                  ))}
-                </select>
+                <label className="block text-lg font-semibold mb-4 text-slate-200">Search by Department</label>
+                <div className="relative">
+                  <select
+                    value={selectedDepartment}
+                    onChange={(e) => setSelectedDepartment(e.target.value)}
+                    className="w-full p-4 rounded-2xl bg-white/10 border border-white/20 text-white appearance-none focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+                  >
+                    <option value="All">All Departments</option>
+                    {DEPARTMENTS.map((dept) => (
+                      <option key={dept.id} value={dept.name}>{dept.name}</option>
+                    ))}
+                  </select>
+                  <ChevronRight className="absolute right-4 top-1/2 transform -translate-y-1/2 rotate-90 text-slate-400" />
+                </div>
               </div>
               <div className="flex flex-col justify-end">
-                <Link
-                  href="/appointment"
-                  className="block w-full bg-gradient-to-r from-teal-600 to-blue-600 text-white text-center font-semibold py-3 px-6 rounded-xl hover:shadow-lg transition-shadow"
+                <GlassButton
+                  size="lg"
+                  variant="primary"
+                  glow
+                  magnetic
+                  className="w-full py-4 text-lg"
+                  onClick={() => window.location.href = "/contact"}
                 >
-                  Book Appointment with Doctor
-                </Link>
+                  Contact Medical Coordinator
+                  <ChevronRight className="ml-2 h-5 w-5" />
+                </GlassButton>
               </div>
             </div>
-          </div>
+          </GlassPanel>
 
           {/* Doctors Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {DOCTORS.map((doctor) => (
-              <div
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2 }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          >
+            {filteredDoctors.map((doctor, index) => (
+              <motion.div
                 key={doctor.id}
-                className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 dark:border-gray-700"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.05 }}
+                whileHover={{ y: -10 }}
               >
-                <div className="p-6">
+                <GlassPanel
+                  variant="medium"
+                  glow="soft"
+                  className="h-full p-6 rounded-3xl cursor-pointer group"
+                >
                   <div className="flex items-start mb-6">
-                    <div className="w-20 h-20 rounded-full bg-gradient-to-r from-teal-400 to-blue-500 flex items-center justify-center text-white text-2xl font-bold">
-                      {doctor.name.split(" ").map(n => n[0]).join("")}
+                    <div className="relative">
+                      <div className="w-20 h-20 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 flex items-center justify-center text-white text-2xl font-bold">
+                        {doctor.name.split(" ").map(n => n[0]).join("")}
+                      </div>
+                      <div className="absolute -top-1 -right-1 w-8 h-8 rounded-full bg-gradient-to-r from-green-500 to-emerald-500 flex items-center justify-center">
+                        <Star size={14} className="text-white" />
+                      </div>
                     </div>
                     <div className="ml-6 flex-1">
-                      <h3 className="text-xl font-bold text-gray-800 dark:text-white">{doctor.name}</h3>
+                      <h3 className="text-xl font-bold text-white">{doctor.name}</h3>
                       <div className="flex items-center mt-1">
-                        <Stethoscope size={16} className="text-teal-600 dark:text-teal-400 mr-2" />
-                        <span className="text-teal-600 dark:text-teal-400 font-semibold">{doctor.specialization}</span>
+                        <Stethoscope size={16} className="text-cyan-400 mr-2" />
+                        <span className="text-cyan-400 font-semibold">{doctor.specialization}</span>
                       </div>
                       <div className="flex items-center mt-2">
                         {[1, 2, 3, 4, 5].map((star) => (
                           <Star key={star} size={16} className="text-amber-500 fill-amber-500" />
                         ))}
-                        <span className="ml-2 text-sm text-gray-600 dark:text-gray-300">5.0 (120 reviews)</span>
+                        <span className="ml-2 text-sm text-slate-400">5.0 (120 reviews)</span>
                       </div>
                     </div>
                   </div>
 
-                  <div className="space-y-4">
+                  <div className="space-y-4 mb-8">
                     <div className="flex items-center">
-                      <Award size={18} className="text-gray-500 dark:text-gray-400 mr-3" />
+                      <Award size={18} className="text-cyan-400 mr-3" />
                       <div>
-                        <div className="text-sm text-gray-500 dark:text-gray-400">Qualification</div>
-                        <div className="font-medium text-gray-800 dark:text-white">{doctor.qualification}</div>
+                        <div className="text-sm text-slate-400">Qualification</div>
+                        <div className="font-medium text-white">{doctor.qualification}</div>
                       </div>
                     </div>
                     <div className="flex items-center">
-                      <Clock size={18} className="text-gray-500 dark:text-gray-400 mr-3" />
+                      <Clock size={18} className="text-cyan-400 mr-3" />
                       <div>
-                        <div className="text-sm text-gray-500 dark:text-gray-400">Experience</div>
-                        <div className="font-medium text-gray-800 dark:text-white">{doctor.experience}</div>
+                        <div className="text-sm text-slate-400">Experience</div>
+                        <div className="font-medium text-white">{doctor.experience}</div>
                       </div>
                     </div>
                     <div className="flex items-center">
-                      <Calendar size={18} className="text-gray-500 dark:text-gray-400 mr-3" />
+                      <Calendar size={18} className="text-cyan-400 mr-3" />
                       <div>
-                        <div className="text-sm text-gray-500 dark:text-gray-400">Availability</div>
-                        <div className="font-medium text-gray-800 dark:text-white">{doctor.availability}</div>
+                        <div className="text-sm text-slate-400">Availability</div>
+                        <div className="font-medium text-white">{doctor.availability}</div>
                       </div>
                     </div>
                   </div>
 
-                  <div className="mt-8 pt-6 border-t border-gray-100 dark:border-gray-700">
+                  <div className="pt-6 border-t border-white/10">
                     <div className="flex gap-3">
-                      <Link
-                        href={`/appointment?doctor=${doctor.name}`}
-                        className="flex-1 bg-gradient-to-r from-teal-600 to-blue-600 text-white text-center font-semibold py-3 rounded-lg hover:shadow-md transition-shadow"
+                      <GlassButton
+                        variant="primary"
+                        size="sm"
+                        className="flex-1"
+                        onClick={() => window.location.href = "/contact"}
                       >
                         Book Appointment
-                      </Link>
-                      <button className="w-12 h-12 border border-gray-300 dark:border-gray-600 rounded-lg flex items-center justify-center hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
-                        <Phone size={20} className="text-gray-600 dark:text-gray-300" />
-                      </button>
+                      </GlassButton>
+                      <GlassButton
+                        variant="secondary"
+                        size="sm"
+                        className="w-12"
+                        onClick={() => window.location.href = `tel:${CONTACT_DETAILS.doctorsPhone}`}
+                      >
+                        <Phone size={20} />
+                      </GlassButton>
                     </div>
                   </div>
-                </div>
-              </div>
+                </GlassPanel>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
 
-          {/* Additional Information */}
-          <div className="mt-16 grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <div className="bg-gradient-to-r from-teal-50 to-blue-50 dark:from-gray-800 dark:to-gray-900 rounded-2xl p-8">
-              <h2 className="text-2xl font-bold mb-6 text-gray-800 dark:text-white">Why Choose Our Doctors?</h2>
-              <ul className="space-y-4">
-                <li className="flex items-start">
-                  <div className="p-2 rounded-lg bg-teal-100 dark:bg-teal-900/30 text-teal-600 dark:text-teal-400 mr-4">
-                    <Award size={20} />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-gray-800 dark:text-white">Board Certified Specialists</h3>
-                    <p className="text-gray-600 dark:text-gray-300">All our doctors are certified by relevant medical boards with continuous education.</p>
-                  </div>
-                </li>
-                <li className="flex items-start">
-                  <div className="p-2 rounded-lg bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 mr-4">
-                    <Stethoscope size={20} />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-gray-800 dark:text-white">Multidisciplinary Approach</h3>
-                    <p className="text-gray-600 dark:text-gray-300">Complex cases are handled by teams of specialists collaborating for best outcomes.</p>
-                  </div>
-                </li>
-                <li className="flex items-start">
-                  <div className="p-2 rounded-lg bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 mr-4">
-                    <User size={20} />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-gray-800 dark:text-white">Patient-Centered Care</h3>
-                    <p className="text-gray-600 dark:text-gray-300">Our doctors prioritize patient comfort, communication, and personalized treatment plans.</p>
-                  </div>
-                </li>
-              </ul>
-            </div>
-
-            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8">
-              <h2 className="text-2xl font-bold mb-6 text-gray-800 dark:text-white">Doctor Appointment Guidelines</h2>
-              <div className="space-y-4">
-                <div className="flex items-start">
-                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-teal-100 dark:bg-teal-900/30 flex items-center justify-center text-teal-600 dark:text-teal-400 font-bold mr-4">
-                    1
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-gray-800 dark:text-white">Choose Your Doctor</h3>
-                    <p className="text-gray-600 dark:text-gray-300">Browse profiles and select the specialist matching your health needs.</p>
-                  </div>
-                </div>
-                <div className="flex items-start">
-                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 dark:text-blue-400 font-bold mr-4">
-                    2
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-gray-800 dark:text-white">Check Availability</h3>
-                    <p className="text-gray-600 dark:text-gray-300">View doctor schedules and select a convenient time slot.</p>
-                  </div>
-                </div>
-                <div className="flex items-start">
-                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center text-purple-600 dark:text-purple-400 font-bold mr-4">
-                    3
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-gray-800 dark:text-white">Book Appointment</h3>
-                    <p className="text-gray-600 dark:text-gray-300">Book online or via phone for instant confirmation and personalized assistance.</p>
-                  </div>
-                </div>
+          {/* Call to Action */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mt-16"
+          >
+            <GlassPanel
+              variant="strong"
+              glow="medium"
+              className="p-10 rounded-3xl text-center"
+            >
+              <h2 className="text-3xl font-bold mb-6">Can't Find Your Doctor?</h2>
+              <p className="text-xl text-slate-300/90 max-w-3xl mx-auto mb-8">
+                Our medical coordinators can help you find the right specialist for your needs. Contact us for personalized assistance.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-6 justify-center">
+                <GlassButton
+                  size="lg"
+                  variant="primary"
+                  glow
+                  magnetic
+                  className="px-8 py-4 text-lg"
+                  onClick={() => window.location.href = "/contact"}
+                >
+                  Contact Medical Coordinator
+                  <ChevronRight className="ml-2 h-5 w-5" />
+                </GlassButton>
+                <GlassButton
+                  size="lg"
+                  variant="secondary"
+                  className="px-8 py-4 text-lg"
+                  onClick={() => window.location.href = `tel:${CONTACT_DETAILS.appointmentPhone}`}
+                >
+                  <Phone className="mr-2 h-5 w-5" />
+                  Call for Appointment
+                </GlassButton>
               </div>
-              <div className="mt-8 p-4 bg-gray-50 dark:bg-gray-900 rounded-xl">
-                <div className="flex items-center">
-                  <Phone size={20} className="text-teal-600 dark:text-teal-400 mr-3" />
-                  <div>
-                    <div className="font-bold text-gray-800 dark:text-white">Need Help Choosing?</div>
-                    <div className="text-gray-600 dark:text-gray-300">Call our medical coordinator at {CONTACT_DETAILS.doctorsPhone}</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* CTA Section */}
-          <div className="mt-16 text-center">
-            <h2 className="text-3xl font-bold mb-6 text-gray-800 dark:text-white">Can't Find Your Specialist?</h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto">
-              We have 150+ doctors across all specialties. Contact our medical coordination team for personalized doctor recommendations.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href="/contact"
-                className="bg-gradient-to-r from-teal-600 to-blue-600 text-white font-bold py-4 px-8 rounded-xl text-lg hover:shadow-xl transition-shadow"
-              >
-                Contact Medical Coordinator
-              </Link>
-              <a
-                href={`tel:${CONTACT_DETAILS.doctorsPhone}`}
-                className="border-2 border-teal-600 text-teal-600 dark:text-teal-400 dark:border-teal-400 font-bold py-4 px-8 rounded-xl text-lg hover:bg-teal-50 dark:hover:bg-teal-900/20 transition-colors"
-              >
-                Call Doctor Helpline
-              </a>
-            </div>
-          </div>
+            </GlassPanel>
+          </motion.div>
         </div>
       </section>
     </div>

@@ -134,6 +134,10 @@ const config: Config = {
         "pulse-slow": "pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite",
         "bounce-slow": "bounce 2s infinite",
         "spin-slow": "spin 3s linear infinite",
+        "glow-pulse": "glowPulse 3s ease-in-out infinite",
+        "shimmer": "shimmer 2s infinite",
+        "blob": "blob 7s infinite",
+        "magnetic": "magnetic 0.4s ease-out",
       },
       keyframes: {
         fadeIn: {
@@ -152,12 +156,36 @@ const config: Config = {
           "0%, 100%": { transform: "translateY(0)" },
           "50%": { transform: "translateY(-10px)" },
         },
+        glowPulse: {
+          "0%, 100%": { boxShadow: "0 0 20px rgba(0, 198, 255, 0.3)" },
+          "50%": { boxShadow: "0 0 40px rgba(0, 198, 255, 0.5)" },
+        },
+        shimmer: {
+          "0%": { backgroundPosition: "-1000px 0" },
+          "100%": { backgroundPosition: "1000px 0" },
+        },
+        blob: {
+          "0%, 100%": { transform: "translate(0, 0) scale(1)" },
+          "25%": { transform: "translate(20px, -50px) scale(1.1)" },
+          "50%": { transform: "translate(-20px, 20px) scale(0.9)" },
+          "75%": { transform: "translate(50px, 50px) scale(1.05)" },
+        },
+        magnetic: {
+          "0%": { transform: "translate(0, 0)" },
+          "100%": { transform: "translate(var(--tx), var(--ty))" },
+        },
       },
       boxShadow: {
         "soft": "0 4px 20px rgba(0, 0, 0, 0.05)",
         "medium": "0 6px 30px rgba(0, 0, 0, 0.1)",
         "hard": "0 10px 40px rgba(0, 0, 0, 0.15)",
         "inner-lg": "inset 0 4px 20px rgba(0, 0, 0, 0.05)",
+        "glow": "0 0 20px rgba(0, 198, 255, 0.3)",
+        "glow-md": "0 0 30px rgba(0, 198, 255, 0.4)",
+        "glow-lg": "0 0 50px rgba(0, 198, 255, 0.5)",
+        "neon": "0 0 30px rgba(0, 198, 255, 0.4), inset 0 0 20px rgba(0, 198, 255, 0.1)",
+        "glass": "0 8px 32px rgba(0, 0, 0, 0.1)",
+        "glass-hover": "0 8px 48px rgba(0, 0, 0, 0.2)",
       },
       backdropBlur: {
         xs: "2px",

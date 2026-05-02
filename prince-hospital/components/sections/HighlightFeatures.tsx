@@ -13,8 +13,8 @@ export default function HighlightFeatures() {
       icon: Video,
       color: "bg-blue-500",
       gradient: "from-blue-500 to-teal-400",
-      ctaText: "Book Video Consult",
-      ctaLink: "/appointment?type=video",
+      ctaText: "Contact for Video Consult",
+      ctaLink: "/contact",
     },
     {
       title: "24/7 Medicines",

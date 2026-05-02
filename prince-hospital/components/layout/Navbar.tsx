@@ -34,12 +34,6 @@ export default function Navbar() {
             </div>
             <div className="hidden md:flex items-center gap-4">
               <ThemeToggle />
-              <a 
-                href="/appointment" 
-                className="bg-white text-primary hover:bg-gray-100 px-4 py-1.5 rounded-md text-sm font-medium transition-colors"
-              >
-                Book Appointment
-              </a>
             </div>
           </div>
         </div>
@@ -139,10 +133,10 @@ export default function Navbar() {
                     </div>
                   </div>
                   <a
-                    href="/appointment"
+                    href="/contact"
                     className="flex items-center justify-center rounded-lg bg-primary px-6 py-3.5 text-base font-medium text-white hover:bg-primary/90 transition-colors mt-4"
                   >
-                    Book Appointment
+                    Contact Us
                   </a>
                 </div>
               </div>

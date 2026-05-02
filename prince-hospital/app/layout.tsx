@@ -1,25 +1,26 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
+import { Navbar } from "@/components/layout/NavbarNew";
+import { Footer } from "@/components/layout/FooterNew";
 import { ThemeProvider } from "@/components/layout/ThemeProvider";
+import { SnapScrollProvider } from "@/components/providers/SnapScrollProvider";
 import BackToTop from "@/components/layout/BackToTop";
 import { cn } from "@/lib/utils";
 
 const inter = Inter({ subsets: ["latin"], variable: '--font-sans' });
 
 export const metadata: Metadata = {
-  title: "Prince Hospital | Advanced Multi-Specialty Care in Shekhawati",
-  description: "Prince Hospital offers 700+ beds, advanced diagnostics, and 24/7 emergency services. Book appointment online or call 72300 90108.",
-  keywords: ["hospital", "multi-specialty", "emergency", "Shekhawati", "Rajasthan", "healthcare"],
+  title: "Prince Hospital | Next-Gen Healthcare Excellence",
+  description: "Experience the future of healthcare. Advanced multi-specialty hospital with 700+ beds, expert doctors, and 24/7 emergency services.",
+  keywords: ["hospital", "healthcare", "emergency", "specialists", "medical care"],
   authors: [{ name: "Prince Hospital" }],
   openGraph: {
     type: "website",
     locale: "en_IN",
     url: "https://princehospital.in",
-    title: "Prince Hospital | Advanced Multi-Specialty Care in Shekhawati",
-    description: "Advanced healthcare with modern facilities in Rajasthan",
+    title: "Prince Hospital | Next-Gen Healthcare Excellence",
+    description: "Advanced healthcare with cutting-edge facilities and compassionate care",
     siteName: "Prince Hospital",
   },
 };
@@ -30,20 +31,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className={cn("font-sans", inter.variable)}>
-      <body className={inter.className}>
+    <html lang="en" suppressHydrationWarning className={cn("font-sans scroll-smooth", inter.variable)}>
+      <body className={cn(inter.className, "bg-slate-950 text-white")}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
+          defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
         >
-          <div className="flex min-h-screen flex-col">
-            <Navbar />
-            <main className="flex-1">{children}</main>
-            <Footer />
-            <BackToTop />
-          </div>
+          <SnapScrollProvider>
+            <div className="flex min-h-screen flex-col">
+              <Navbar />
+              <main className="flex-1">{children}</main>
+              <Footer />
+              <BackToTop />
+            </div>
+          </SnapScrollProvider>
         </ThemeProvider>
       </body>
     </html>

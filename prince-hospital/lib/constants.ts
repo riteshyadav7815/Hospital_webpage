@@ -12,7 +12,6 @@ export const NAV_LINKS = [
   { name: "About", href: "/about" },
   { name: "Departments", href: "/departments" },
   { name: "Doctors", href: "/doctors" },
-  { name: "Appointment", href: "/appointment" },
   { name: "Contact", href: "/contact" },
 ] as const;
 
@@ -109,8 +108,8 @@ export const HERO_SLIDES = [
     title: "Advanced Healthcare with Compassion",
     subtitle: "World-class multi-specialty hospital in Shekhawati region",
     image: "/images/hero-slide1.jpg",
-    ctaText: "Book Appointment",
-    ctaLink: "/appointment",
+    ctaText: "Contact Us",
+    ctaLink: "/contact",
   },
   {
     id: 2,

@@ -17,7 +17,7 @@ export default function CTA() {
               Ready to <span className="text-primary">Take the Next Step</span> Towards Better Health?
             </h2>
             <p className="text-lg text-gray-600">
-              Contact us today to schedule an appointment or get more information about our services.
+              Contact us today to get more information about our services or speak with our care team.
             </p>
           </div>
 
@@ -34,7 +34,7 @@ export default function CTA() {
               >
                 {CONTACT_DETAILS.appointmentPhone}
               </a>
-              <p className="text-gray-500 mb-6">Appointment & General Enquiries</p>
+              <p className="text-gray-500 mb-6">Contact & General Enquiries</p>
               <a
                 href={`tel:${CONTACT_DETAILS.appointmentPhone}`}
                 className="inline-flex items-center justify-center font-medium rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 bg-primary text-white hover:bg-primary/90 shadow-sm px-7 py-3.5 text-lg w-full"
@@ -43,19 +43,19 @@ export default function CTA() {
               </a>
             </Card>
 
-            {/* Book Online Card */}
+            {/* Contact Online Card */}
             <Card className="text-center p-8 border border-gray-200 hover:shadow-lg transition-shadow">
               <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-secondary/5 text-secondary mb-6">
                 <Calendar className="h-8 w-8" />
               </div>
-              <h3 className="text-xl font-bold mb-3">Book Online</h3>
-              <p className="text-gray-500 mb-4">Quick & Easy Appointment Booking</p>
+              <h3 className="text-xl font-bold mb-3">Contact Online</h3>
+              <p className="text-gray-500 mb-4">Quick & Easy Contact Options</p>
               <p className="text-sm text-gray-400 mb-6">Available 24/7</p>
               <Link
-                href="/appointment"
+                href="/contact"
                 className="inline-flex items-center justify-center font-medium rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 bg-secondary text-white hover:bg-secondary/90 shadow-sm px-7 py-3.5 text-lg w-full"
               >
-                Book Appointment
+                Contact Us
               </Link>
             </Card>
 
